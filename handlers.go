@@ -29,6 +29,18 @@ func createUser(c *gin.Context) {
 	users = append(users, user)
 
 }
+func getUser(c *gin.Context) {
+	var uid = c.Param("uid")
+
+	for user := range users {
+		if users[user].ID == uid {
+			c.JSON(http.StatusOK, users[user])
+			return
+		}
+	}
+
+	c.JSON(http.StatusNotFound, gin.H{"message": "User not found"})
+}
 
 func addFriend(c *gin.Context) {
 	var uid = c.Param("uid")
