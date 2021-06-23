@@ -98,3 +98,29 @@ func getConversationList(c *gin.Context) {
 	c.JSON(http.StatusNotFound, gin.H{"message": "User not found"})
 
 }
+
+func postMessage(c *gin.Context) {
+	var text = c.Param("text")
+	var authorId = c.Param("authorId")
+	var conversationId = c.Param("conversationId")
+
+	var conversationIndex = -1
+
+	for conversation := range conversations {
+		if conversations[conversation].ID == conversationId {
+			conversationIndex = conversation
+			break
+		}
+	}
+
+	if conversationIndex != -1 {
+		var message Message
+		message.ID = strconv.Itoa(len(conversations[conversationIndex].Messages))
+		message.Text = text
+		message.AuthorId = authorId
+
+		conversations[conversationIndex].Messages =
+			append(conversations[conversationIndex].Messages, message)
+	}
+
+}
