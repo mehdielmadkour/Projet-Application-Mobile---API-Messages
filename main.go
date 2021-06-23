@@ -8,6 +8,7 @@ func main() {
 	//Users
 	r.GET("/users/", getUsers)
 	r.POST("/createUser/:uid/:username/:photoUrl", createUser)
+	r.GET("/user/:uid", getUser)
 
 	//Friends
 	r.POST("/addFriend/:uid/:friendId", addFriend)
