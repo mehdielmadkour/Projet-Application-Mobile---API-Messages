@@ -2,7 +2,6 @@ package main
 
 import "github.com/gin-gonic/gin"
 
-
 func main() {
 	r := gin.Default()
 
@@ -10,5 +9,5 @@ func main() {
 
 	r.POST("/createUser/:uid/:username/:photoUrl", createUser)
 
-	r.Run()
+	r.Run(":80")
 }
