@@ -76,3 +76,25 @@ func createConversation(c *gin.Context) {
 	conversation.Messages = []Message{}
 
 }
+
+func getConversationList(c *gin.Context) {
+	var uid = c.Param("uid")
+
+	for userIndex := range users {
+		if users[userIndex].ID == uid {
+			var conversationList []User = []User{}
+			for conversation := range users[userIndex].ConversationIdList {
+				for user := range users {
+					if users[user].ID == users[userIndex].ConversationIdList[conversation] {
+						conversationList = append(conversationList, users[user])
+					}
+				}
+			}
+	
+			c.JSON(http.StatusOK, conversationList)
+			return
+		}
+	}
+	c.JSON(http.StatusNotFound, gin.H{"message": "User not found"})
+
+}

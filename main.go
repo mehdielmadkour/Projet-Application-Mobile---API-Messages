@@ -15,6 +15,7 @@ func main() {
 
 	//Conversations
 	r.POST("/createConversation/:title/:photoUrl", createConversation)
+	r.GET("/conversationList/:uid", getConversationList)
 
 	r.Run(":80")
 }
