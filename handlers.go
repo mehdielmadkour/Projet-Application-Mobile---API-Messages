@@ -87,6 +87,7 @@ func createConversation(c *gin.Context) {
 	conversation.PhotoUrl = photoUrl
 	conversation.Messages = []Message{}
 
+	c.JSON(http.StatusOK, conversation.ID)
 }
 
 func getConversation(c *gin.Context) {
