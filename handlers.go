@@ -42,6 +42,29 @@ func addFriend(c *gin.Context) {
 	}
 }
 
+func getFriendList(c *gin.Context) {
+	var uid = c.Param("uid")
+
+
+	for userIndex := range users {
+		if users[userIndex].ID == uid {
+			var friendList []User = []User{}
+			for friend := range users[userIndex].FriendIdList {
+				for user := range users {
+					if users[user].ID == users[userIndex].FriendIdList[friend] {
+						friendList = append(friendList, users[user])
+					}
+				}
+			}
+
+			c.JSON(http.StatusOK, friendList)
+			return
+		}
+	}
+
+	c.JSON(http.StatusNotFound, gin.H{"message": "User not found"})
+}
+
 func createConversation(c *gin.Context) {
 	var title = c.Param("title")
 	var photoUrl = c.Param("photoUrl")
