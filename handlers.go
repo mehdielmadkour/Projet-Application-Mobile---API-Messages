@@ -77,6 +77,19 @@ func createConversation(c *gin.Context) {
 
 }
 
+func getConversation(c *gin.Context) {
+	var id = c.Param("id")
+
+	for conversation := range conversations {
+		if conversations[conversation].ID == id {
+			c.JSON(http.StatusOK, conversations[conversation])
+			return
+		}
+	}
+
+	c.JSON(http.StatusNotFound, gin.H{"message": "Conversation not found"})
+}
+
 func getConversationList(c *gin.Context) {
 	var uid = c.Param("uid")
 
