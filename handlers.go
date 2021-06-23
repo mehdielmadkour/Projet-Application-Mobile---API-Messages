@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-
+	"strconv"
 	"github.com/gin-gonic/gin"
 )
 
@@ -40,4 +40,16 @@ func addFriend(c *gin.Context) {
 			return
 		}
 	}
+}
+
+func createConversation(c *gin.Context) {
+	var title = c.Param("title")
+	var photoUrl = c.Param("photoUrl")
+
+	var conversation Conversation
+	conversation.ID = strconv.Itoa(len(conversations))
+	conversation.Title = title
+	conversation.PhotoUrl = photoUrl
+	conversation.Messages = []Message{}
+
 }
