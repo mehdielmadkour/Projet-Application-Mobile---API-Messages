@@ -3,6 +3,6 @@ package main
 type Conversation struct {
 	ID       string    `json:"id"`
 	Title    string    `json:"title"`
-	PhotoUrl string    `json:"photo_url"`
+	PhotoUrl string    `json:"photoUrl"`
 	Messages []Message `json:"messages"`
 }
