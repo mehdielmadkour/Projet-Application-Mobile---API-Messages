@@ -8,6 +8,7 @@ func main() {
 	r.GET("/users/", getUsers)
 
 	r.POST("/createUser/:uid/:username/:photoUrl", createUser)
+	r.POST("/addFriend/:uid/:friendId", addFriend)
 
 	r.Run(":80")
 }
