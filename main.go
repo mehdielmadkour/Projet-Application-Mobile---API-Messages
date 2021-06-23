@@ -16,6 +16,7 @@ func main() {
 	//Conversations
 	r.POST("/createConversation/:title/:photoUrl", createConversation)
 	r.GET("/conversationList/:uid", getConversationList)
+	r.POST("/postMessage/:conversationId/:authorId/:text", postMessage)
 
 	r.Run(":80")
 }
