@@ -8,5 +8,5 @@ func main() {
 
 	r.GET("/users/", getUsers)
 
-	r.Run()
+	r.Run(":80")
 }
