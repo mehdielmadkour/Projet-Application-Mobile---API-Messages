@@ -29,3 +29,15 @@ func createUser(c *gin.Context) {
 	users = append(users, user)
 
 }
+
+func addFriend(c *gin.Context) {
+	var uid = c.Param("uid")
+	var friendId = c.Param("friendId")
+
+	for user := range users {
+		if users[user].ID == uid {
+			users[user].FriendIdList = append(users[user].FriendIdList, friendId)
+			return
+		}
+	}
+}
