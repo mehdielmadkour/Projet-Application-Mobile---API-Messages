@@ -78,12 +78,19 @@ func getFriendList(c *gin.Context) {
 }
 
 func createConversation(c *gin.Context) {
+	var uid = c.Param("uid")
 	var title = c.Param("title")
 	var photoUrl = c.Param("photoUrl")
 
 	var conversation = Conversation{strconv.Itoa(len(conversations)), title, photoUrl, []Message{}}
-
 	conversations = append(conversations, conversation)
+
+	for user := range users {
+		if users[user].ID == uid {
+			users[user].ConversationIdList = append(users[user].ConversationIdList, conversation.ID)
+			break
+		}
+	}
 
 	c.JSON(http.StatusOK, conversation.ID)
 }
@@ -147,4 +154,16 @@ func postMessage(c *gin.Context) {
 			append(conversations[conversationIndex].Messages, message)
 	}
 
+}
+
+func inviteFriend(c *gin.Context) {
+	var uid = c.Param("uid")
+	var conversationId = c.Param("conversationId")
+
+	for user := range users {
+		if users[user].ID == uid {
+			users[user].ConversationIdList = append(users[user].ConversationIdList, conversationId)
+			break
+		}
+	}
 }
