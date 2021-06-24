@@ -81,11 +81,9 @@ func createConversation(c *gin.Context) {
 	var title = c.Param("title")
 	var photoUrl = c.Param("photoUrl")
 
-	var conversation Conversation
-	conversation.ID = strconv.Itoa(len(conversations))
-	conversation.Title = title
-	conversation.PhotoUrl = photoUrl
-	conversation.Messages = []Message{}
+	var conversation = Conversation{strconv.Itoa(len(conversations)), title, photoUrl, []Message{}}
+
+	conversations = append(conversations, conversation)
 
 	c.JSON(http.StatusOK, conversation.ID)
 }
