@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 	"strconv"
+	"time"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -152,6 +154,10 @@ func postMessage(c *gin.Context) {
 		message.ID = strconv.Itoa(len(conversations[conversationIndex].Messages))
 		message.Text = text
 		message.AuthorId = authorId
+
+		var t = time.Now()
+
+		message.Timestamp = t.Format("2006-01-02 15:04:05")
 
 		conversations[conversationIndex].Messages =
 			append(conversations[conversationIndex].Messages, message)
