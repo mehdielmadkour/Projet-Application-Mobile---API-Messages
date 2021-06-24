@@ -49,7 +49,7 @@ func addFriend(c *gin.Context) {
 	for user := range users {
 		if users[user].ID == uid {
 			users[user].FriendIdList = append(users[user].FriendIdList, friendId)
-			return
+			break
 		}
 	}
 
@@ -118,15 +118,11 @@ func getConversation(c *gin.Context) {
 func getConversationList(c *gin.Context) {
 	var uid = c.Param("uid")
 
-	for userIndex := range users {
-		if users[userIndex].ID == uid {
-			var conversationList []User = []User{}
-			for conversation := range users[userIndex].ConversationIdList {
-				for user := range users {
-					if users[user].ID == users[userIndex].ConversationIdList[conversation] {
-						conversationList = append(conversationList, users[user])
-					}
-				}
+	for user := range users {
+		if users[user].ID == uid {
+			var conversationList []Conversation = []Conversation{}
+			for conversation := range users[user].ConversationIdList {
+				conversationList = append(conversationList, conversations[conversation])
 			}
 	
 			c.JSON(http.StatusOK, conversationList)
@@ -164,11 +160,11 @@ func postMessage(c *gin.Context) {
 }
 
 func inviteFriend(c *gin.Context) {
-	var uid = c.Param("uid")
+	var friendId = c.Param("friendId")
 	var conversationId = c.Param("conversationId")
 
 	for user := range users {
-		if users[user].ID == uid {
+		if users[user].ID == friendId {
 			users[user].ConversationIdList = append(users[user].ConversationIdList, conversationId)
 			break
 		}
