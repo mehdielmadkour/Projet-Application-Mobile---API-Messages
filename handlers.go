@@ -52,6 +52,13 @@ func addFriend(c *gin.Context) {
 			return
 		}
 	}
+
+	for user := range users {
+		if users[user].ID == friendId {
+			users[user].FriendIdList = append(users[user].FriendIdList, uid)
+			return
+		}
+	}
 }
 
 func getFriendList(c *gin.Context) {
