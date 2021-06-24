@@ -15,10 +15,11 @@ func main() {
 	r.GET("/friendList/:uid", getFriendList)
 
 	//Conversations
-	r.POST("/createConversation/:title/:photoUrl", createConversation)
+	r.POST("/createConversation/:uid/:title/:photoUrl", createConversation)
 	r.GET("/conversation/:id", getConversation)
 	r.GET("/conversationList/:uid", getConversationList)
 	r.POST("/postMessage/:conversationId/:authorId/:text", postMessage)
+	r.POST("/inviteFriend/:conversationId/:friendId", inviteFriend)
 
 	r.Run(":80")
 }
